@@ -59,6 +59,30 @@ body {
 	font-weight: bold;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.nav-button {
+	background-color: #9c5717;
+	color: white;
+	padding: 15px;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 5px;
+	font-weight: bold;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.sair-button {
+	background-color: #e23a2e;
+	color: white;
+	padding: 15px;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 5px;
+	font-weight: bold;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {

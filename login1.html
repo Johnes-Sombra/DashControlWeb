@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./assets/logos/coopsul.ico">
+    <link rel="stylesheet" href="./assets/css/login-style.css">
+    <title>Dash Control Web | Login</title>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="usuario">Usuário</label>
+                <input type="text" id="usuario" placeholder="Digite aqui seu usuário">
+                <div id="usuarioError" class="error-message">Por favor, insira o usuário</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" placeholder="Digite aqui sua senha">
+                <div id="senhaError" class="error-message">Por favor, insira a senha</div>
+            </div>
+            
+            <div class="button-group">
+                <button type="submit" class="login-btn">Login</button>
+                <button type="button" class="forgot-btn">Esqueci a senha</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Javascript para validação simples do login --->
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset error messages
+            document.getElementById('usuarioError').style.display = 'none';
+            document.getElementById('senhaError').style.display = 'none';
+            
+            // Get values
+            const usuario = document.getElementById('usuario').value.trim();
+            const senha = document.getElementById('senha').value.trim();
+            
+            // Validate fields
+            let isValid = true;
+            
+            if (!usuario) {
+                document.getElementById('usuarioError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!senha) {
+                document.getElementById('senhaError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            // Simple authentication
+            if (usuario === 'coopsul' && senha === '123456') {
+                alert('Login bem-sucedido!');
+                // Here you would typically redirect to another page
+                // window.location.href = 'dashboard.html';
+            } else {
+                alert('Usuário ou senha incorretos!');
+            }
+        });
+        
+        // Optional: Forgot password button
+        document.querySelector('.forgot-btn').addEventListener('click', function() {
+            alert('Funcionalidade "Esqueci a senha" será implementada em breve.');
+        });
+    </script>
+</body>
+</html>

@@ -41,6 +41,12 @@ body {
 	margin: 20px 0;
 }
 
+.sucesso {
+	width: 500px;
+	height: 500px;
+	margin: 20px 0;
+}
+
 .menu-container {
 	display: flex;
 	flex-direction: column;
@@ -61,10 +67,32 @@ body {
 }
 
 .nav-button {
-	background-color: #9c5717;
+	background-color: #9b7306;
 	color: white;
 	padding: 15px;
 	text-align: center;
+	text-decoration: none;
+	border-radius: 5px;
+	font-weight: bold;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.voltar-button {
+	background-color: #9b7306;
+	color: white;
+	padding: 15px;
+	text-align: left;
+	text-decoration: none;
+	border-radius: 5px;
+	font-weight: bold;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.acao-button {
+	background-color: #58a448;
+	color: white;
+	padding: 15px;
+	text-align: right;
 	text-decoration: none;
 	border-radius: 5px;
 	font-weight: bold;
@@ -81,6 +109,7 @@ body {
 	font-weight: bold;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
 
 
 /* HTML5 display-role reset for older browsers */

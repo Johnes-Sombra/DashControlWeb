@@ -83,15 +83,15 @@ body {
 
 .form-actions {
     display: flex;
-    justify-content: flex-end;
-    gap: 15px;
+    justify-content: space-between;
     margin-top: 25px;
     padding-top: 15px;
     border-top: 1px solid #eee;
 }
 
 .btn-submit,
-.btn-cancel {
+.btn-cancel,
+.btn-back {
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
@@ -117,4 +117,13 @@ body {
 
 .btn-cancel:hover {
     background-color: #c0392b;
+}
+
+.btn-back {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-back:hover {
+    background-color: #2980b9;
 }

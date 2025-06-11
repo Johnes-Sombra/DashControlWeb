@@ -1,14 +1,14 @@
 <?php
-session_start();
+// Remover session_start() daqui pois já é chamado em index.php
 
 function verificarSessao($nivel_requerido = 'usuario') {
     if (!isset($_SESSION['user_id']) || !isset($_SESSION['nivel_acesso'])) {
-        header('Location: /login.html');
+        header('Location: /DashControlWeb/login.php');
         exit;
     }
 
     if ($nivel_requerido === 'admin' && $_SESSION['nivel_acesso'] !== 'admin') {
-        header('Location: /index.php?erro=permissao');
+        header('Location: /DashControlWeb/index.php?erro=permissao');
         exit;
     }
 

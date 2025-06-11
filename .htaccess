@@ -1,4 +1,9 @@
 RewriteEngine On
+
+# Redirecionar login.html para login.php
+RewriteRule ^login\.html$ login.php [L,R=301]
+
+# Regras existentes
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]

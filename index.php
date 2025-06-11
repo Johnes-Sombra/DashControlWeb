@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once 'config/verificar_sessao.php';
 
 // Definir constantes do sistema
 define('BASE_PATH', __DIR__);
-define('BASE_URL', '//');
+define('BASE_URL', '/DashControlWeb'); // Corrigido para incluir o nome do projeto
+require_once 'config/verificar_sessao.php';
 
 // Função para limpar a URL
 function limparUrl($url) {

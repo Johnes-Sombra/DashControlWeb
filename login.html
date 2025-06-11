@@ -25,6 +25,7 @@
             
             <div class="button-group">
                 <button type="submit" class="login-btn">Login</button>
+                <a href="admin/index.php" class="forgot-password">Esqueci minha senha</a>
             </div>
 
             <?php if(isset($_GET['erro'])): ?>
@@ -37,10 +38,16 @@
                         case '2':
                             echo 'Erro no sistema. Tente novamente mais tarde';
                             break;
+                        case '3':
+                            echo 'Conta temporariamente bloqueada. Tente novamente mais tarde';
+                            break;
+                        case '4':
+                            echo 'Sessão expirada. Por favor, faça login novamente';
+                            break;
                         default:
                             echo 'Erro desconhecido';
-                    }
-                ?>
+                }
+            ?>
             </div>
             <?php endif; ?>
         </form>
@@ -60,3 +67,4 @@
     </script>
 </body>
 </html>
+<link rel="stylesheet" href="./assets/css/login-style.css">

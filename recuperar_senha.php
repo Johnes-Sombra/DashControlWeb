@@ -22,7 +22,6 @@ class PasswordRecovery {
         }
 
         if ($user['nivel_acesso'] === 'admin') {
-            // Redirecionar admin para o painel de usuários
             return ['status' => 'admin_redirect', 'url' => 'views/admin/usuarios.php'];
         }
 
@@ -44,10 +43,8 @@ class PasswordRecovery {
             $expires->format('Y-m-d H:i:s')
         ]);
 
-        // Aqui você implementaria o envio do email com o link de recuperação
-        // $resetLink = "https://seusite.com/redefinir_senha.php?token=" . $token;
-        
-        return $token;
+        // Retornar resposta JSON formatada
+        return ['status' => 'success', 'token' => $token, 'message' => 'Link de recuperação gerado com sucesso'];
     }
 
     public function validateToken($token) {

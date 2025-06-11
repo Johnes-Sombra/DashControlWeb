@@ -12,14 +12,21 @@ class PasswordRecovery {
     public function requestReset($usuario) {
         $conn = $this->db->getAuthConnection();
         
-        // Verificar se o usuário existe
-        $stmt = $conn->prepare("SELECT id FROM usuarios WHERE usuario = ?");
+        // Verificar se o usuário existe e é admin
+        $stmt = $conn->prepare("SELECT id, nivel_acesso FROM usuarios WHERE usuario = ?");
         $stmt->execute([$usuario]);
-        if (!$stmt->fetch()) {
-            return false;
+        $user = $stmt->fetch();
+        
+        if (!$user) {
+            return ['status' => 'error', 'message' => 'Usuário não encontrado'];
         }
 
-        // Gerar token único
+        if ($user['nivel_acesso'] === 'admin') {
+            // Redirecionar admin para o painel de usuários
+            return ['status' => 'admin_redirect', 'url' => 'views/admin/usuarios.php'];
+        }
+
+        // Continuar com o processo normal de recuperação de senha
         $token = bin2hex(random_bytes(32));
         $now = new DateTime();
         $expires = (new DateTime())->add(new DateInterval('PT1H'));

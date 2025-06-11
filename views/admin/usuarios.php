@@ -1,7 +1,8 @@
 <?php
-require_once 'config/verificar_sessao.php';
-require_once 'views/templates/header.php';
+require_once '../../config/verificar_sessao.php';
+require_once '../templates/header.php';
 ?>
+<link rel="stylesheet" href="../../assets/css/main-style.css">
 <div class="menu-container">
     <h1>Gerenciamento de Usuários</h1>
     
@@ -51,5 +52,5 @@ require_once 'views/templates/header.php';
     </div>
 </div>
 
-<script src="/assets/js/usuarios.js"></script>
-<?php require_once 'views/templates/footer.php'; ?>
+<script src="../../assets/js/usuarios.js"></script>
+<?php require_once '../templates/footer.php'; ?>

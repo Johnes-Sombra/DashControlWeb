@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         $db = new Database();
-        $conn = $db->getConnection();
+        $conn = $db->getAuthConnection(); // Alterado para usar a conexão de autenticação
         
         $stmt = $conn->prepare('SELECT id, usuario, senha, nivel_acesso FROM usuarios WHERE usuario = ? AND ativo = 1');
         $stmt->execute([$usuario]);

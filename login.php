@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <div class="button-group">
                 <button type="submit" class="login-btn">Login</button>
-                <a href="admin/usuarios.php" class="forgot-password">Esqueci minha senha</a>
+                <a href="views/admin/usuarios.php" class="forgot-password">Esqueci minha senha</a>
             </div>
 
             <?php

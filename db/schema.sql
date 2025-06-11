@@ -5,11 +5,11 @@ USE auth_db;
 -- Adicionando tabela de usuários
 CREATE TABLE usuarios (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    usuario TEXT NOT NULL UNIQUE,
-    senha TEXT NOT NULL,
-    nome_completo TEXT,
-    email TEXT,
-    nivel_acesso TEXT DEFAULT 'usuario',
+    usuario VARCHAR(255) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    nome_completo VARCHAR(255),
+    email VARCHAR(255),
+    nivel_acesso VARCHAR(50) DEFAULT 'usuario',
     ativo INTEGER DEFAULT 1,
     data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );

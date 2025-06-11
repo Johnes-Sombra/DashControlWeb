@@ -120,30 +120,51 @@ class Database {
             return;
         }
 
-        $sql = "INSERT INTO login_attempts (usuario, attempts, last_attempt, locked_until) 
-                VALUES (?, 1, NOW(), NOW() + INTERVAL ? SECOND) 
-                ON DUPLICATE KEY UPDATE 
-                attempts = attempts + 1,
-                last_attempt = NOW(),
-                locked_until = IF(attempts + 1 >= ?, NOW() + INTERVAL ? SECOND, locked_until)";
+        $current_time = date('Y-m-d H:i:s');
+        $locked_until = date('Y-m-d H:i:s', time() + self::$lockout_time);
 
-        $this->auth_db->prepare($sql)->execute([
-            $usuario,
-            self::$lockout_time,
-            self::$max_login_attempts,
-            self::$lockout_time
-        ]);
+        // Verificar se o usuário já existe
+        $stmt = $this->auth_db->prepare("SELECT attempts FROM login_attempts WHERE usuario = ?");
+        $stmt->execute([$usuario]);
+        $result = $stmt->fetch();
+
+        if (!$result) {
+            // Inserir novo registro
+            $sql = "INSERT INTO login_attempts (usuario, attempts, last_attempt, locked_until) 
+                    VALUES (?, 1, ?, ?)";
+            $this->auth_db->prepare($sql)->execute([
+                $usuario,
+                $current_time,
+                $locked_until
+            ]);
+        } else {
+            // Atualizar registro existente
+            $new_attempts = $result['attempts'] + 1;
+            $sql = "UPDATE login_attempts 
+                    SET attempts = ?, 
+                        last_attempt = ?, 
+                        locked_until = ? 
+                    WHERE usuario = ?";
+            $this->auth_db->prepare($sql)->execute([
+                $new_attempts,
+                $current_time,
+                $new_attempts >= self::$max_login_attempts ? $locked_until : null,
+                $usuario
+            ]);
+        }
     }
 
     // Novo método para registrar logs de acesso
     public function logAccess($usuario, $acao, $status) {
+        $current_time = date('Y-m-d H:i:s');
         $sql = "INSERT INTO access_logs (usuario, acao, status, ip_address, data_hora) 
-                VALUES (?, ?, ?, ?, NOW())";
+                VALUES (?, ?, ?, ?, ?)";
         $this->auth_db->prepare($sql)->execute([
             $usuario,
             $acao,
             $status,
-            $_SERVER['REMOTE_ADDR']
+            $_SERVER['REMOTE_ADDR'],
+            $current_time
         ]);
     }
 }

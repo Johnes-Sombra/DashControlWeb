@@ -26,7 +26,7 @@ class MailService {
 
     public function enviarEmailRecuperacao($usuario, $email, $token) {
         try {
-            $link = "http://" . $_SERVER['HTTP_HOST'] . "/redefinir_senha.html?token=" . $token;
+            $link = "http://" . $_SERVER['HTTP_HOST'] . "/redefinir_senha.php?token=" . $token;
 
             $this->mailer->addAddress($email);
             $this->mailer->isHTML(true);

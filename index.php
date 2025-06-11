@@ -3,7 +3,7 @@ session_start();
 
 // Definir constantes do sistema
 define('BASE_PATH', __DIR__);
-define('BASE_URL', '/DashControlWeb'); // Corrigido para incluir o nome do projeto
+define('BASE_URL', ''); // Removida a referência ao DashControlWeb
 require_once 'config/verificar_sessao.php';
 
 // Função para limpar a URL

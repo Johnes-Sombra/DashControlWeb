@@ -1,9 +1,11 @@
+# Remover as regras de redirecionamento .html para .php pois não são mais necessárias
 RewriteEngine On
 
-# Redirecionar login.html para login.php
-RewriteRule ^login\.html$ login.php [L,R=301]
+# Redirecionar / para login.php se não estiver autenticado
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^$ /login.php [L,R=301]
 
-# Regras existentes
+# Regras para o funcionamento do sistema
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]

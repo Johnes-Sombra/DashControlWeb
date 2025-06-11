@@ -13,7 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verificar tentativas de login
         if (!$db->checkLoginAttempts($usuario)) {
             $db->logAccess($usuario, 'login', 'bloqueado');
-            header('Location: login.html?erro=3'); // Usuário bloqueado
+            // Alterar os redirecionamentos de erro
+            header('Location: login.php?erro=3'); // Usuário bloqueado
             exit;
         }
 
@@ -37,13 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $db->recordLoginAttempt($usuario, false);
             $db->logAccess($usuario, 'login', 'falha');
             
-            header('Location: login.html?erro=1');
+            header('Location: login.php?erro=1');
             exit;
         }
     } catch(PDOException $e) {
         error_log("Erro no login: " . $e->getMessage());
         $db->logAccess($usuario, 'login', 'erro_sistema');
-        header('Location: login.html?erro=2');
+        header('Location: login.php?erro=2');
         exit;
     }
 }
@@ -76,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <div class="button-group">
                 <button type="submit" class="login-btn">Login</button>
-                <a href="esqueci_senha.html" class="forgot-password">Esqueci minha senha</a>
+                <a href="admin/usuarios.php" class="forgot-password">Esqueci minha senha</a>
             </div>
 
             <?php

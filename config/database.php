@@ -1,4 +1,6 @@
 <?php
+require_once 'config.php';
+
 class Database {
     private $auth_db;
     private $main_db;
@@ -9,23 +11,27 @@ class Database {
         try {
             // Conexão com o banco de dados de autenticação
             $this->auth_db = new PDO(
-                'mysql:host=localhost;dbname=' . AUTH_DB_NAME,
-                'root',
-                '',
-                array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
+                'mysql:host=' . DB_HOST . ';dbname=' . AUTH_DB_NAME . ';charset=utf8',
+                DB_USER,
+                DB_PASS,
+                [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
+                ]
             );
-            $this->auth_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->auth_db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
             // Conexão com o banco de dados principal
             $this->main_db = new PDO(
-                'mysql:host=localhost;dbname=' . MAIN_DB_NAME,
-                'root',
-                '',
-                array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
+                'mysql:host=' . DB_HOST . ';dbname=' . MAIN_DB_NAME . ';charset=utf8',
+                DB_USER,
+                DB_PASS,
+                [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
+                ]
             );
-            $this->main_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->main_db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
         } catch(PDOException $e) {
             error_log("Erro na conexão: " . $e->getMessage());

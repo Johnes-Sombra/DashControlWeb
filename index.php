@@ -18,13 +18,17 @@ $url = isset($_GET['url']) ? limparUrl($_GET['url']) : '';
 $rotas = [
     '' => ['arquivo' => 'views/dashboard.php', 'nivel' => 'usuario'],
     'login' => ['arquivo' => 'views/login.php', 'nivel' => 'publico'],
+    'logout' => ['arquivo' => 'logout.php', 'nivel' => 'usuario'],
+    'esqueci-senha' => ['arquivo' => 'views/esqueci_senha.php', 'nivel' => 'publico'],
+    'recuperar-senha' => ['arquivo' => 'views/recuperar_senha.php', 'nivel' => 'publico'],
+    'redefinir-senha' => ['arquivo' => 'views/redefinir_senha.php', 'nivel' => 'publico'],
     'coletas' => ['arquivo' => 'views/coletas/index.php', 'nivel' => 'usuario'],
-    'coletas/adicionar' => ['arquivo' => 'views/coletas/adicionar.php', 'nivel' => 'usuario'],
-    'coletas/locais' => ['arquivo' => 'views/coletas/locais.php', 'nivel' => 'usuario'],
-    'coletas/veiculos' => ['arquivo' => 'views/coletas/veiculos.php', 'nivel' => 'usuario'],
-    'coletas/relatorio' => ['arquivo' => 'views/coletas/relatorio.php', 'nivel' => 'usuario'],
+    'coletas/adicionar_coleta' => ['arquivo' => 'views/coletas/adicionar_coleta.php', 'nivel' => 'usuario'],
+    'coletas/locais_coleta' => ['arquivo' => 'views/coletas/locais_coleta.php', 'nivel' => 'usuario'],
+    'coletas/veiculos_coleta' => ['arquivo' => 'views/coletas/veiculos_coleta.php', 'nivel' => 'usuario'],
+    'coletas/relatorio_coletas' => ['arquivo' => 'views/coletas/relatorio_coletas.php', 'nivel' => 'usuario'],
     'admin' => ['arquivo' => 'views/admin/index.php', 'nivel' => 'admin'],
-    'admin/usuarios' => ['arquivo' => 'views/admin/usuarios.php', 'nivel' => 'admin'],
+    'admin/usuarios' => ['arquivo' => 'views/admin/usuarios.php', 'nivel' => 'admin']
 ];
 
 // Verificar se a rota existe

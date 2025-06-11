@@ -11,6 +11,7 @@ if (!isset($_SESSION['nivel_acesso']) || $_SESSION['nivel_acesso'] !== 'admin') 
 $db = new Database();
 $conn = $db->getAuthConnection(); // Corrigido para usar getAuthConnection
 
+// Resto do código permanece igual
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
         // Criar novo usuário

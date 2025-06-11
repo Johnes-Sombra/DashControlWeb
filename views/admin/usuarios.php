@@ -1,5 +1,6 @@
 <?php
-require_once '../../config/verificar_sessao.php';
+// Comentando a verificação de sessão durante o desenvolvimento
+// require_once '../../config/verificar_sessao.php';
 require_once '../templates/header.php';
 ?>
 <link rel="stylesheet" href="../../assets/css/main-style.css">

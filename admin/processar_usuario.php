@@ -9,7 +9,7 @@ if (!isset($_SESSION['nivel_acesso']) || $_SESSION['nivel_acesso'] !== 'admin') 
 }
 
 $db = new Database();
-$conn = $db->getConnection();
+$conn = $db->getAuthConnection(); // Corrigido para usar getAuthConnection
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':

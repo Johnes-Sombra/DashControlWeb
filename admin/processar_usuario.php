@@ -48,6 +48,20 @@ function excluirUsuario($conn, $id) {
     return $stmt->execute([$id]);
 }
 
+// Adicione esta função após as outras funções
+function recuperarUsuario($conn, $usuario) {
+    $stmt = $conn->prepare("SELECT id, email FROM usuarios WHERE usuario = ?");
+    $stmt->execute([$usuario]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user) {
+        // Aqui você pode implementar o envio de email com link de recuperação
+        // Por enquanto, vamos apenas redirecionar para a página de usuários
+        return true;
+    }
+    return false;
+}
+
 try {
     $acao = $_POST['acao'] ?? $_GET['acao'] ?? '';
     $response = [];
@@ -79,6 +93,15 @@ try {
                 $response = ['success' => true, 'message' => 'Usuário excluído com sucesso'];
             } else {
                 throw new Exception('Erro ao excluir usuário');
+            }
+            break;
+
+        case 'recuperar':
+            $usuario = $_POST['usuario'] ?? '';
+            if (recuperarUsuario($conn, $usuario)) {
+                $response = ['success' => true, 'message' => 'Redirecionando para o painel administrativo...'];
+            } else {
+                throw new Exception('Usuário não encontrado');
             }
             break;
 

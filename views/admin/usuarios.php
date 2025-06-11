@@ -5,6 +5,13 @@ require_once '../templates/header.php';
 ?>
 <link rel="stylesheet" href="../../assets/css/main-style.css">
 <div class="menu-container">
+    <div class="header-actions">
+        <a href="../../login.php" class="btn-secondary" style="display: inline-flex; align-items: center; gap: 5px;">
+            <img src="../../assets/icones/back.png" alt="Voltar" style="width: 20px; height: 20px;">
+            Voltar para Login
+        </a>
+    </div>
+
     <h1>Gerenciamento de Usuários</h1>
     
     <div class="actions">

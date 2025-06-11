@@ -4,7 +4,7 @@ USE auth_db;
 
 -- Adicionando tabela de usuários
 CREATE TABLE usuarios (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
     usuario TEXT NOT NULL UNIQUE,
     senha TEXT NOT NULL,
     nome_completo TEXT,
@@ -70,6 +70,15 @@ CREATE TABLE veiculos (
     FOREIGN KEY (empresa_id) REFERENCES empresas(id)
 );
 
+-- Banco de dados para locais
+CREATE TABLE locais (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    nome_local TEXT NOT NULL,
+    representante TEXT,
+    contato TEXT,
+    email TEXT
+);
+
 -- Tabela de Tipos de Materiais
 CREATE TABLE tipos_materiais (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -91,9 +100,8 @@ INSERT INTO tipos_materiais (nome, unidade_medida) VALUES
     ('Madeira', 'm²');
 
 -- Tabela de Coletas
--- Banco de dados para coletas
 CREATE TABLE coletas (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
     data DATETIME DEFAULT CURRENT_TIMESTAMP,
     local_id INTEGER,
     veiculo_id INTEGER,
@@ -109,24 +117,7 @@ CREATE TABLE coletas (
     FOREIGN KEY (veiculo_id) REFERENCES veiculos(id)
 );
 
--- Banco de dados para locais
-CREATE TABLE locais (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome_local TEXT NOT NULL,
-    representante TEXT,
-    contato TEXT,
-    email TEXT
-);
 
--- Banco de dados para veículos
-CREATE TABLE veiculos (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome_veiculo TEXT NOT NULL,
-    proprietario TEXT,
-    placa TEXT,
-    contato TEXT,
-    email TEXT
-);
 
 -- Tabela de Materiais Coletados
 CREATE TABLE materiais_coletados (

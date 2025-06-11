@@ -6,22 +6,25 @@ class Database {
     private $main_db;
     private static $max_login_attempts = 3;
     private static $lockout_time = 900; // 15 minutos em segundos
+    private static $sqlite_path = __DIR__ . '/auth.sqlite';
 
     public function __construct() {
         try {
-            // Conexão com o banco de dados de autenticação
+            // Conexão com o banco SQLite para autenticação
             $this->auth_db = new PDO(
-                'mysql:host=' . DB_HOST . ';dbname=' . AUTH_DB_NAME . ';charset=utf8',
-                DB_USER,
-                DB_PASS,
+                'sqlite:' . self::$sqlite_path,
+                null,
+                null,
                 [
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
                 ]
             );
 
-            // Conexão com o banco de dados principal
+            // Criar tabelas se não existirem
+            $this->initializeSQLiteTables();
+
+            // Conexão com o banco de dados principal (mantém MySQL)
             $this->main_db = new PDO(
                 'mysql:host=' . DB_HOST . ';dbname=' . MAIN_DB_NAME . ';charset=utf8',
                 DB_USER,
@@ -36,6 +39,47 @@ class Database {
         } catch(PDOException $e) {
             error_log("Erro na conexão: " . $e->getMessage());
             throw new Exception("Erro ao conectar ao banco de dados");
+        }
+    }
+
+    private function initializeSQLiteTables() {
+        // Criar tabela de usuários
+        $this->auth_db->exec("CREATE TABLE IF NOT EXISTS usuarios (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            usuario TEXT NOT NULL UNIQUE,
+            senha TEXT NOT NULL,
+            nome_completo TEXT,
+            email TEXT,
+            nivel_acesso TEXT DEFAULT 'usuario',
+            ativo INTEGER DEFAULT 1,
+            data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP
+        )");
+
+        // Criar tabela de tentativas de login
+        $this->auth_db->exec("CREATE TABLE IF NOT EXISTS login_attempts (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            usuario TEXT NOT NULL UNIQUE,
+            attempts INTEGER DEFAULT 0,
+            last_attempt DATETIME,
+            locked_until DATETIME
+        )");
+
+        // Criar tabela de logs de acesso
+        $this->auth_db->exec("CREATE TABLE IF NOT EXISTS access_logs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            usuario TEXT NOT NULL,
+            acao TEXT NOT NULL,
+            status TEXT NOT NULL,
+            ip_address TEXT,
+            data_hora DATETIME DEFAULT CURRENT_TIMESTAMP
+        )");
+
+        // Inserir usuário admin padrão se não existir
+        $stmt = $this->auth_db->prepare("SELECT COUNT(*) FROM usuarios WHERE usuario = 'adamastor'");
+        $stmt->execute();
+        if ($stmt->fetchColumn() == 0) {
+            $this->auth_db->exec("INSERT INTO usuarios (usuario, senha, nivel_acesso) 
+                VALUES ('adamastor', '" . password_hash('senha123', PASSWORD_DEFAULT) . "', 'admin')");
         }
     }
 

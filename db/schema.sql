@@ -85,16 +85,41 @@ INSERT INTO tipos_materiais (nome, unidade_medida) VALUES
     ('Madeira', 'm²');
 
 -- Tabela de Coletas
+-- Banco de dados para coletas
 CREATE TABLE coletas (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    data_coleta TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    empresa_origem_id INT NOT NULL,
-    veiculo_id INT NOT NULL,
-    responsavel_id INT NOT NULL,
-    observacoes TEXT,
-    FOREIGN KEY (empresa_origem_id) REFERENCES empresas(id),
-    FOREIGN KEY (veiculo_id) REFERENCES veiculos(id),
-    FOREIGN KEY (responsavel_id) REFERENCES cooperados(id)
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    data DATETIME DEFAULT CURRENT_TIMESTAMP,
+    local_id INTEGER,
+    veiculo_id INTEGER,
+    papel_papelao FLOAT DEFAULT 0,
+    plastico FLOAT DEFAULT 0,
+    vidro FLOAT DEFAULT 0,
+    metal FLOAT DEFAULT 0,
+    aluminio FLOAT DEFAULT 0,
+    ferro FLOAT DEFAULT 0,
+    eletronico FLOAT DEFAULT 0,
+    madeira FLOAT DEFAULT 0,
+    FOREIGN KEY (local_id) REFERENCES locais(id),
+    FOREIGN KEY (veiculo_id) REFERENCES veiculos(id)
+);
+
+-- Banco de dados para locais
+CREATE TABLE locais (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome_local TEXT NOT NULL,
+    representante TEXT,
+    contato TEXT,
+    email TEXT
+);
+
+-- Banco de dados para veículos
+CREATE TABLE veiculos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome_veiculo TEXT NOT NULL,
+    proprietario TEXT,
+    placa TEXT,
+    contato TEXT,
+    email TEXT
 );
 
 -- Tabela de Materiais Coletados

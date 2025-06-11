@@ -1,62 +1,18 @@
 <?php
 class Database {
-    private static $authInstance = null;
-    private static $mainInstance = null;
+    private $db;
 
-    // Conexão com o banco de autenticação
-    public static function getAuthConnection() {
-        if (self::$authInstance === null) {
-            try {
-                $dsn = sprintf(
-                    "mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4",
-                    DB_HOST,
-                    DB_PORT,
-                    AUTH_DB_NAME
-                );
-                
-                self::$authInstance = new PDO(
-                    $dsn,
-                    AUTH_DB_USER,
-                    AUTH_DB_PASS,
-                    [
-                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"
-                    ]
-                );
-            } catch (PDOException $e) {
-                die("Erro na conexão com banco de autenticação: " . $e->getMessage());
-            }
+    public function __construct() {
+        try {
+            $this->db = new PDO('sqlite:../db/coopsul_db.db');
+            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch(PDOException $e) {
+            echo "Erro na conexão: " . $e->getMessage();
         }
-        return self::$authInstance;
     }
 
-    // Conexão com o banco principal
-    public static function getMainConnection() {
-        if (self::$mainInstance === null) {
-            try {
-                $dsn = sprintf(
-                    "mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4",
-                    DB_HOST,
-                    DB_PORT,
-                    MAIN_DB_NAME
-                );
-                
-                self::$mainInstance = new PDO(
-                    $dsn,
-                    MAIN_DB_USER,
-                    MAIN_DB_PASS,
-                    [
-                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"
-                    ]
-                );
-            } catch (PDOException $e) {
-                die("Erro na conexão com banco principal: " . $e->getMessage());
-            }
-        }
-        return self::$mainInstance;
+    public function getConnection() {
+        return $this->db;
     }
 }
 define('DB_HOST', '192.168.1.41');

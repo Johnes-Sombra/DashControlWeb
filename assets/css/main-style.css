@@ -64,6 +64,13 @@ body {
 	border-radius: 5px;
 	font-weight: bold;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	transition: all 0.3s ease;
+}
+
+.menu-button:hover {
+	background-color: #2E7D32;
+	transform: scale(1.02);
+	box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .nav-button {
@@ -75,6 +82,13 @@ body {
 	border-radius: 5px;
 	font-weight: bold;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+	background-color: #b88a07;
+	transform: scale(1.02);
+	box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .voltar-button {
@@ -86,6 +100,13 @@ body {
 	border-radius: 5px;
 	font-weight: bold;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	transition: all 0.3s ease;
+}
+
+.voltar-button:hover {
+	background-color: #b88a07;
+	transform: scale(1.02);
+	box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .acao-button {
@@ -97,6 +118,13 @@ body {
 	border-radius: 5px;
 	font-weight: bold;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	transition: all 0.3s ease;
+}
+
+.acao-button:hover {
+	background-color: #6ab559;
+	transform: scale(1.02);
+	box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .sair-button {
@@ -108,6 +136,13 @@ body {
 	border-radius: 5px;
 	font-weight: bold;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	transition: all 0.3s ease;
+}
+
+.sair-button:hover {
+	background-color: #f04b3e;
+	transform: scale(1.02);
+	box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 

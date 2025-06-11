@@ -103,12 +103,3 @@ class Database {
         ]);
     }
 }
-
-// Configurações do banco de dados
-define('DB_HOST', 'localhost');
-
-// Banco de dados de autenticação
-define('AUTH_DB_NAME', 'auth_db');
-
-// Banco de dados principal
-define('MAIN_DB_NAME', 'coopsul_db');

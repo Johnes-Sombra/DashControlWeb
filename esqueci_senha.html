@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./assets/logos/ktn_icon.ico">
+    <link rel="stylesheet" href="./assets/css/login-style.css">
+    <title>Recuperar Senha - Dash Control Web</title>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Recuperar Senha</h2>
+        <form id="recoveryForm" action="recuperar_senha.php" method="POST">
+            <div class="form-group">
+                <label for="usuario">Usuário</label>
+                <input type="text" id="usuario" name="usuario" placeholder="Digite seu usuário" required>
+                <div id="usuarioError" class="error-message">Por favor, insira o usuário</div>
+            </div>
+            
+            <div class="button-group">
+                <button type="submit" class="login-btn">Enviar Link de Recuperação</button>
+                <a href="login.html" class="back-link">Voltar para Login</a>
+            </div>
+
+            <?php if(isset($_GET['status'])): ?>
+            <div class="message-box <?php echo $_GET['status']; ?>">
+                <?php 
+                    switch($_GET['status']) {
+                        case 'success':
+                            echo 'Link de recuperação enviado para seu e-mail';
+                            break;
+                        case 'error':
+                            echo 'Usuário não encontrado';
+                            break;
+                        case 'invalid':
+                            echo 'Link de recuperação inválido ou expirado';
+                            break;
+                    }
+                ?>
+            </div>
+            <?php endif; ?>
+        </form>
+    </div>
+</body>
+</html>

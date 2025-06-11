@@ -1,29 +1,45 @@
 <?php
 class Database {
-    private $db;
+    private $auth_db;
+    private $main_db;
 
     public function __construct() {
         try {
-            $this->db = new PDO('sqlite:../db/coopsul_db.db');
-            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // Conexão com o banco de dados de autenticação
+            $this->auth_db = new PDO(
+                'mysql:host=localhost;dbname=' . AUTH_DB_NAME,
+                'root',
+                ''
+            );
+            $this->auth_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            // Conexão com o banco de dados principal
+            $this->main_db = new PDO(
+                'mysql:host=localhost;dbname=' . MAIN_DB_NAME,
+                'root',
+                ''
+            );
+            $this->main_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
         } catch(PDOException $e) {
             echo "Erro na conexão: " . $e->getMessage();
         }
     }
 
-    public function getConnection() {
-        return $this->db;
+    public function getAuthConnection() {
+        return $this->auth_db;
+    }
+
+    public function getMainConnection() {
+        return $this->main_db;
     }
 }
-define('DB_HOST', '192.168.1.41');
-define('DB_PORT', '3306');
+
+// Configurações do banco de dados
+define('DB_HOST', 'localhost');
 
 // Banco de dados de autenticação
 define('AUTH_DB_NAME', 'auth_db');
-define('AUTH_DB_USER', 'seu_usuario');
-define('AUTH_DB_PASS', 'sua_senha');
 
 // Banco de dados principal
 define('MAIN_DB_NAME', 'coopsul_db');
-define('MAIN_DB_USER', 'seu_usuario');
-define('MAIN_DB_PASS', 'sua_senha');

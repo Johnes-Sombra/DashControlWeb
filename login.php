@@ -1,22 +1,34 @@
 <?php
 session_start();
+require_once 'config/database.php';
 
-// Definições de usuário e senha
-$usuario_valido = 'coopsul';
-$senha_valida = '123456';
-
-// Verifica se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $usuario = $_POST['usuario'] ?? '';
-    $senha = $_POST['senha'] ?? '';
+    $usuario = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_STRING);
+    $senha = $_POST['senha'];
 
-    // Verifica as credenciais
-    if ($usuario === $usuario_valido && $senha === $senha_valida) {
-        $_SESSION['logado'] = true;
-        header('Location: index.html'); // Redireciona para a página principal
+    try {
+        $db = new Database();
+        $conn = $db->getConnection();
+        
+        $stmt = $conn->prepare('SELECT id, usuario, senha, nivel_acesso FROM usuarios WHERE usuario = ? AND ativo = 1');
+        $stmt->execute([$usuario]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && password_verify($senha, $user['senha'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['usuario'] = $user['usuario'];
+            $_SESSION['nivel_acesso'] = $user['nivel_acesso'];
+            
+            header('Location: index.php');
+            exit;
+        } else {
+            header('Location: login.html?erro=1');
+            exit;
+        }
+    } catch(PDOException $e) {
+        error_log("Erro no login: " . $e->getMessage());
+        header('Location: login.html?erro=2');
         exit;
-    } else {
-        $erro = 'Usuário ou senha inválidos!';
     }
 }
 ?>

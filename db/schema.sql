@@ -2,15 +2,21 @@
 CREATE DATABASE IF NOT EXISTS auth_db;
 USE auth_db;
 
+-- Adicionando tabela de usuários
 CREATE TABLE usuarios (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    last_login TIMESTAMP NULL,
-    is_active BOOLEAN DEFAULT true
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    usuario TEXT NOT NULL UNIQUE,
+    senha TEXT NOT NULL,
+    nome_completo TEXT,
+    email TEXT,
+    nivel_acesso TEXT DEFAULT 'usuario',
+    ativo INTEGER DEFAULT 1,
+    data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Inserindo usuário administrador padrão
+INSERT INTO usuarios (usuario, senha, nivel_acesso) 
+VALUES ('adamastor', '$2y$10$YourHashedPasswordHere', 'admin');
 
 -- Banco de dados principal
 CREATE DATABASE IF NOT EXISTS coopsul_db;

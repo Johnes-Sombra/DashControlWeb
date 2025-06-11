@@ -1,9 +1,61 @@
 <?php
-    session_start();
-    if (!isset($_SESSION['usuario'])) {
-        header('Location: login.php');
-        exit();
+session_start();
+require_once 'config/verificar_sessao.php';
+
+// Definir constantes do sistema
+define('BASE_PATH', __DIR__);
+define('BASE_URL', '//');
+
+// Função para limpar a URL
+function limparUrl($url) {
+    return filter_var(trim($url, '/'), FILTER_SANITIZE_URL);
+}
+
+// Obter a URL requisitada
+$url = isset($_GET['url']) ? limparUrl($_GET['url']) : '';
+
+// Definir rotas permitidas e seus requisitos de acesso
+$rotas = [
+    '' => ['arquivo' => 'views/dashboard.php', 'nivel' => 'usuario'],
+    'login' => ['arquivo' => 'views/login.php', 'nivel' => 'publico'],
+    'coletas' => ['arquivo' => 'views/coletas/index.php', 'nivel' => 'usuario'],
+    'coletas/adicionar' => ['arquivo' => 'views/coletas/adicionar.php', 'nivel' => 'usuario'],
+    'coletas/locais' => ['arquivo' => 'views/coletas/locais.php', 'nivel' => 'usuario'],
+    'coletas/veiculos' => ['arquivo' => 'views/coletas/veiculos.php', 'nivel' => 'usuario'],
+    'coletas/relatorio' => ['arquivo' => 'views/coletas/relatorio.php', 'nivel' => 'usuario'],
+    'admin' => ['arquivo' => 'views/admin/index.php', 'nivel' => 'admin'],
+    'admin/usuarios' => ['arquivo' => 'views/admin/usuarios.php', 'nivel' => 'admin'],
+];
+
+// Verificar se a rota existe
+if (!array_key_exists($url, $rotas)) {
+    header('HTTP/1.0 404 Not Found');
+    include 'views/404.php';
+    exit;
+}
+
+// Verificar nível de acesso necessário
+$rota = $rotas[$url];
+if ($rota['nivel'] !== 'publico') {
+    if ($rota['nivel'] === 'admin') {
+        verificarAdmin();
+    } else {
+        verificarSessao();
     }
+}
+
+// Incluir o template header
+include 'views/templates/header.php';
+
+// Carregar o arquivo da rota
+if (file_exists(BASE_PATH . '/' . $rota['arquivo'])) {
+    include BASE_PATH . '/' . $rota['arquivo'];
+} else {
+    include 'views/404.php';
+}
+
+// Incluir o template footer
+include 'views/templates/footer.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

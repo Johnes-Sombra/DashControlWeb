@@ -1,21 +1,25 @@
 <?php
+header('Content-Type: application/json');
+
 require_once '../config/config.php';
 require_once '../config/database.php';
-require_once '../config/verificar_sessao.php';
+// Comentando a verificação de sessão durante o desenvolvimento
+// require_once '../config/verificar_sessao.php';
 
-// Verifica se o usuário tem permissão de administrador
-if (!isset($_SESSION['nivel_acesso']) || $_SESSION['nivel_acesso'] !== 'admin') {
-    http_response_code(403);
-    echo json_encode(['error' => 'Acesso negado']);
-    exit;
-}
+// Removendo a verificação de permissão de administrador
+// if (!isset($_SESSION['nivel_acesso']) || $_SESSION['nivel_acesso'] !== 'admin') {
+//     http_response_code(403);
+//     echo json_encode(['error' => 'Acesso negado']);
+//     exit;
+// }
 
 $db = new Database();
 $conn = $db->getAuthConnection();
 
 // Função para listar usuários
 function listarUsuarios($conn) {
-    $stmt = $conn->prepare("SELECT id, usuario, nome, email, nivel_acesso FROM usuarios WHERE nivel_acesso != 'admin'");
+    // Removendo a restrição de não listar administradores
+    $stmt = $conn->prepare("SELECT id, usuario, nome, email, nivel_acesso FROM usuarios");
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

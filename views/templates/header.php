@@ -6,6 +6,9 @@
     <link rel="icon" type="image/x-icon" href="/assets/logos/coopsul.ico">
     <link rel="stylesheet" href="/assets/css/main-style.css">
     <title>Dash Control Web | Cooperativa Coopsul</title>
+    <!-- Adicionar após os links CSS existentes -->
+    <script src="/assets/js/notifications.js"></script>
+    <script src="/assets/js/confirm-dialog.js"></script>
 </head>
 <body>
     <?php if (isset($_SESSION['usuario']) && $rota['nivel'] !== 'publico'): ?>

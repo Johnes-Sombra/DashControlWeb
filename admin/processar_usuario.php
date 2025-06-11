@@ -16,29 +16,28 @@ require_once '../config/database.php';
 $db = new Database();
 $conn = $db->getAuthConnection();
 
-// Função para listar usuários
+// Na função listarUsuarios
 function listarUsuarios($conn) {
-    // Removendo a restrição de não listar administradores
-    $stmt = $conn->prepare("SELECT id, usuario, nome, email, nivel_acesso FROM usuarios");
+    $stmt = $conn->prepare("SELECT id, usuario, nome_completo, email, nivel_acesso FROM usuarios");
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Função para adicionar usuário
+// Na função adicionarUsuario
 function adicionarUsuario($conn, $data) {
-    $stmt = $conn->prepare("INSERT INTO usuarios (usuario, nome, email, senha, nivel_acesso) VALUES (?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO usuarios (usuario, nome_completo, email, senha, nivel_acesso) VALUES (?, ?, ?, ?, ?)");
     $senha_hash = password_hash($data['senha'], PASSWORD_DEFAULT);
     return $stmt->execute([$data['usuario'], $data['nome'], $data['email'], $senha_hash, $data['nivel_acesso']]);
 }
 
-// Função para atualizar usuário
+// Na função atualizarUsuario
 function atualizarUsuario($conn, $data) {
     if (!empty($data['senha'])) {
-        $stmt = $conn->prepare("UPDATE usuarios SET usuario = ?, nome = ?, email = ?, senha = ?, nivel_acesso = ? WHERE id = ?");
+        $stmt = $conn->prepare("UPDATE usuarios SET usuario = ?, nome_completo = ?, email = ?, senha = ?, nivel_acesso = ? WHERE id = ?");
         $senha_hash = password_hash($data['senha'], PASSWORD_DEFAULT);
         return $stmt->execute([$data['usuario'], $data['nome'], $data['email'], $senha_hash, $data['nivel_acesso'], $data['id']]);
     } else {
-        $stmt = $conn->prepare("UPDATE usuarios SET usuario = ?, nome = ?, email = ?, nivel_acesso = ? WHERE id = ?");
+        $stmt = $conn->prepare("UPDATE usuarios SET usuario = ?, nome_completo = ?, email = ?, nivel_acesso = ? WHERE id = ?");
         return $stmt->execute([$data['usuario'], $data['nome'], $data['email'], $data['nivel_acesso'], $data['id']]);
     }
 }

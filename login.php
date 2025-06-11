@@ -50,21 +50,71 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Cooperativa Coopsul</title>
+    <link rel="icon" type="image/x-icon" href="./assets/logos/ktn_icon.ico">
+    <link rel="stylesheet" href="./assets/css/login-style.css">
+    <title>Dash Control Web | Login</title>
 </head>
 <body>
-    <h2>Login</h2>
-    <?php if (isset($erro)) echo "<p style='color:red;'>$erro</p>"; ?>
-    <form method="post" action="">
-        <label for="usuario">Usuário:</label>
-        <input type="text" id="usuario" name="usuario" required><br>
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required><br>
-        <button type="submit">Entrar</button>
-    </form>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm" action="login.php" method="POST">
+            <div class="form-group">
+                <label for="usuario">Usuário</label>
+                <input type="text" id="usuario" name="usuario" placeholder="Digite aqui seu usuário" required>
+                <div id="usuarioError" class="error-message">Por favor, insira o usuário</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha" placeholder="Digite aqui sua senha" required>
+                <div id="senhaError" class="error-message">Por favor, insira a senha</div>
+            </div>
+            
+            <div class="button-group">
+                <button type="submit" class="login-btn">Login</button>
+                <a href="esqueci_senha.html" class="forgot-password">Esqueci minha senha</a>
+            </div>
+
+            <?php
+            if(isset($_GET['erro'])) {
+                $mensagem = '';
+                switch($_GET['erro']) {
+                    case '1':
+                        $mensagem = 'Usuário ou senha incorretos';
+                        break;
+                    case '2':
+                        $mensagem = 'Erro no sistema. Tente novamente mais tarde';
+                        break;
+                    case '3':
+                        $mensagem = 'Conta temporariamente bloqueada. Tente novamente mais tarde';
+                        break;
+                    case '4':
+                        $mensagem = 'Sessão expirada. Por favor, faça login novamente';
+                        break;
+                    default:
+                        $mensagem = 'Erro desconhecido';
+                }
+                echo '<div class="error-message" style="display: block;">' . htmlspecialchars($mensagem) . '</div>';
+            }
+            ?>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const usuario = document.getElementById('usuario').value.trim();
+            const senha = document.getElementById('senha').value.trim();
+            
+            if (!usuario || !senha) {
+                e.preventDefault();
+                if (!usuario) document.getElementById('usuarioError').style.display = 'block';
+                if (!senha) document.getElementById('senhaError').style.display = 'block';
+            }
+        });
+    </script>
 </body>
 </html>

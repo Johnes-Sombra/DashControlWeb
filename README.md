@@ -1,7 +1,33 @@
-# DashControlWeb
+# Dash Control Web - Sistema de Gestão Coopsul
 
 ## Sobre o Projeto
-DashControlWeb é um sistema de controle desenvolvido para gerenciar cooperativas de materiais recicláveis como a coletas de materiais recicláveis, cadastro de cooperados e cadastro de empresas parceiras. Ele oferece uma interface web para facilitar o gerenciamento e visualização dos dados.
+O Dash Control Web é um sistema de gestão desenvolvido para a Cooperativa Coopsul, focado no controle de coletas, gestão de cooperados e empresas parceiras.
+
+## Tecnologias Utilizadas
+
+- PHP 7.4+
+- MySQL 5.7+
+- HTML5
+- CSS3
+- JavaScript (ES6+)
+
+## Requisitos do Sistema
+
+- Servidor Web (Apache/Nginx)
+- PHP 7.4 ou superior
+- MySQL 5.7 ou superior
+- Extensões PHP necessárias:
+  - PDO
+  - PDO_MySQL
+  - OpenSSL
+
+## Instalação
+
+1. Clone o repositório
+2. Configure o banco de dados:
+   ```bash
+   mysql -u root -p < db/schema.sql
+   ```
 
 ## Como Executar o Projeto
 

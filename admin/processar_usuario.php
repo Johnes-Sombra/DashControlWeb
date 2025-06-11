@@ -1,78 +1,91 @@
 <?php
-session_start();
+require_once '../config/config.php';
 require_once '../config/database.php';
+require_once '../config/verificar_sessao.php';
 
-// Verificar se é administrador
+// Verifica se o usuário tem permissão de administrador
 if (!isset($_SESSION['nivel_acesso']) || $_SESSION['nivel_acesso'] !== 'admin') {
-    header('HTTP/1.1 403 Forbidden');
-    exit('Acesso negado');
+    http_response_code(403);
+    echo json_encode(['error' => 'Acesso negado']);
+    exit;
 }
 
 $db = new Database();
-$conn = $db->getAuthConnection(); // Corrigido para usar getAuthConnection
+$conn = $db->getAuthConnection();
 
-// Resto do código permanece igual
-switch ($_SERVER['REQUEST_METHOD']) {
-    case 'POST':
-        // Criar novo usuário
-        $data = json_decode(file_get_contents('php://input'), true);
-        
-        $stmt = $conn->prepare('INSERT INTO usuarios (usuario, senha, nome_completo, email, nivel_acesso) VALUES (?, ?, ?, ?, ?)');
-        $senha_hash = password_hash($data['senha'], PASSWORD_DEFAULT);
-        
-        try {
-            $stmt->execute([
-                $data['usuario'],
-                $senha_hash,
-                $data['nome'] ?? null,
-                $data['email'] ?? null,
-                $data['nivel'] ?? 'usuario'
-            ]);
-            echo json_encode(['success' => true, 'message' => 'Usuário criado com sucesso']);
-        } catch (PDOException $e) {
-            http_response_code(400);
-            echo json_encode(['success' => false, 'message' => 'Erro ao criar usuário']);
-        }
-        break;
-
-    case 'GET':
-        // Listar usuários
-        $stmt = $conn->query('SELECT id, usuario, nome_completo, email, nivel_acesso, ativo FROM usuarios');
-        echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
-        break;
-
-    case 'PUT':
-        // Atualizar usuário
-        $data = json_decode(file_get_contents('php://input'), true);
-        $stmt = $conn->prepare('UPDATE usuarios SET nome_completo = ?, email = ?, nivel_acesso = ?, ativo = ? WHERE id = ?');
-        
-        try {
-            $stmt->execute([
-                $data['nome'],
-                $data['email'],
-                $data['nivel'],
-                $data['ativo'],
-                $data['id']
-            ]);
-            echo json_encode(['success' => true]);
-        } catch (PDOException $e) {
-            http_response_code(400);
-            echo json_encode(['success' => false]);
-        }
-        break;
-
-    case 'DELETE':
-        // Desativar usuário (soft delete)
-        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-        $stmt = $conn->prepare('UPDATE usuarios SET ativo = 0 WHERE id = ?');
-        
-        try {
-            $stmt->execute([$id]);
-            echo json_encode(['success' => true]);
-        } catch (PDOException $e) {
-            http_response_code(400);
-            echo json_encode(['success' => false]);
-        }
-        break;
+// Função para listar usuários
+function listarUsuarios($conn) {
+    $stmt = $conn->prepare("SELECT id, usuario, nome, email, nivel_acesso FROM usuarios WHERE nivel_acesso != 'admin'");
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-?>
+
+// Função para adicionar usuário
+function adicionarUsuario($conn, $data) {
+    $stmt = $conn->prepare("INSERT INTO usuarios (usuario, nome, email, senha, nivel_acesso) VALUES (?, ?, ?, ?, ?)");
+    $senha_hash = password_hash($data['senha'], PASSWORD_DEFAULT);
+    return $stmt->execute([$data['usuario'], $data['nome'], $data['email'], $senha_hash, $data['nivel_acesso']]);
+}
+
+// Função para atualizar usuário
+function atualizarUsuario($conn, $data) {
+    if (!empty($data['senha'])) {
+        $stmt = $conn->prepare("UPDATE usuarios SET usuario = ?, nome = ?, email = ?, senha = ?, nivel_acesso = ? WHERE id = ?");
+        $senha_hash = password_hash($data['senha'], PASSWORD_DEFAULT);
+        return $stmt->execute([$data['usuario'], $data['nome'], $data['email'], $senha_hash, $data['nivel_acesso'], $data['id']]);
+    } else {
+        $stmt = $conn->prepare("UPDATE usuarios SET usuario = ?, nome = ?, email = ?, nivel_acesso = ? WHERE id = ?");
+        return $stmt->execute([$data['usuario'], $data['nome'], $data['email'], $data['nivel_acesso'], $data['id']]);
+    }
+}
+
+// Função para excluir usuário
+function excluirUsuario($conn, $id) {
+    $stmt = $conn->prepare("DELETE FROM usuarios WHERE id = ? AND nivel_acesso != 'admin'");
+    return $stmt->execute([$id]);
+}
+
+try {
+    $acao = $_POST['acao'] ?? $_GET['acao'] ?? '';
+    $response = [];
+
+    switch ($acao) {
+        case 'listar':
+            $response = listarUsuarios($conn);
+            break;
+
+        case 'adicionar':
+            if (adicionarUsuario($conn, $_POST)) {
+                $response = ['success' => true, 'message' => 'Usuário adicionado com sucesso'];
+            } else {
+                throw new Exception('Erro ao adicionar usuário');
+            }
+            break;
+
+        case 'atualizar':
+            if (atualizarUsuario($conn, $_POST)) {
+                $response = ['success' => true, 'message' => 'Usuário atualizado com sucesso'];
+            } else {
+                throw new Exception('Erro ao atualizar usuário');
+            }
+            break;
+
+        case 'excluir':
+            $id = $_POST['id'] ?? 0;
+            if (excluirUsuario($conn, $id)) {
+                $response = ['success' => true, 'message' => 'Usuário excluído com sucesso'];
+            } else {
+                throw new Exception('Erro ao excluir usuário');
+            }
+            break;
+
+        default:
+            throw new Exception('Ação inválida');
+    }
+
+    echo json_encode($response);
+
+} catch (Exception $e) {
+    http_response_code(400);
+    echo json_encode(['error' => $e->getMessage()]);
+}

@@ -10,7 +10,7 @@
 <body>
     <div class="login-container">
         <h2>Recuperar Senha</h2>
-        <form id="recoveryForm" action="recuperar_senha.php" method="POST">
+        <form id="recoveryForm">
             <div class="form-group">
                 <label for="usuario">Usuário</label>
                 <input type="text" id="usuario" name="usuario" placeholder="Digite seu usuário" required>
@@ -22,24 +22,43 @@
                 <a href="login.php" class="back-link">Voltar para Login</a>
             </div>
 
-            <?php if(isset($_GET['status'])): ?>
-            <div class="message-box <?php echo htmlspecialchars($_GET['status']); ?>">
-                <?php 
-                    switch($_GET['status']) {
-                        case 'success':
-                            echo 'Link de recuperação enviado para seu e-mail';
-                            break;
-                        case 'error':
-                            echo 'Usuário não encontrado';
-                            break;
-                        case 'invalid':
-                            echo 'Link de recuperação inválido ou expirado';
-                            break;
-                    }
-                ?>
-            </div>
-            <?php endif; ?>
+            <div id="messageBox" class="message-box" style="display: none;"></div>
         </form>
     </div>
+
+    <script>
+    document.getElementById('recoveryForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const usuario = document.getElementById('usuario').value;
+        const messageBox = document.getElementById('messageBox');
+
+        fetch('admin/processar_usuario.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `acao=recuperar&usuario=${encodeURIComponent(usuario)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            messageBox.style.display = 'block';
+            if (data.success) {
+                messageBox.className = 'message-box success';
+                messageBox.textContent = data.message;
+                setTimeout(() => {
+                    window.location.href = 'views/admin/usuarios.php';
+                }, 2000);
+            } else {
+                messageBox.className = 'message-box error';
+                messageBox.textContent = data.error || 'Erro ao processar a solicitação';
+            }
+        })
+        .catch(error => {
+            messageBox.style.display = 'block';
+            messageBox.className = 'message-box error';
+            messageBox.textContent = 'Erro ao processar a solicitação';
+        });
+    });
+    </script>
 </body>
 </html>

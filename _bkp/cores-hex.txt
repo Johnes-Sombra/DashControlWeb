@@ -1,0 +1,51 @@
+VERDE ESCURO
+#1a5116
+
+VERDE CLARO
+#58a448
+
+AZUL 1
+#c5dff5
+
+AZUL CLARO 1
+#1a5116
+
+AZUL CLARO 2
+#5ce1e6
+
+VERMELHO
+#f6d529
+
+AMARELO
+#3776a0
+
+----------------------------
+Papel/Papelão
+#38b6ff
+
+Plástico
+#ed1c24 / background-color: rgb(255, 74, 77);
+
+Vidro
+#2ba145
+
+Metal
+#ffde59
+
+Alumínio
+#f6d529
+
+Ferro
+#ffbd59
+
+Eletrônico
+#7e468a / #b464c6
+
+Madeira
+#927572
+
+Orgânico
+#a2481b
+
+
+

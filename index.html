@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DashControl | Login</title>
+  <link rel="stylesheet" href="./assets/css/estilo_login.css" />
+</head>
+<body>
+  <div class="login-container">
+    <div class="logos">
+      <img src="./assets/logos/ktn_png.png" alt="Logo DashControl" />
+      <span class="arrow">⬌</span>
+      <img src="./assets/logos/coopsul_png.png" alt="Logo Cooperativa Coopsul" />
+    </div>
+    <label for="username">Usuário</label>
+    <input type="text" id="username" placeholder="Digite seu usuário">
+
+    <label for="password">Senha</label>
+    <input type="password" id="password" placeholder="Digite sua senha">
+
+    <div class="buttons">
+      <button class="btn-login" onclick="validarLogin()">Login</button>
+      <button class="btn-forgot" onclick="alert('Contate o suporte.')">Esqueci minha senha</button>
+    </div>
+
+    <div id="mensagem" class="message"></div>
+  </div>
+
+  <script src="./assets/js/script_login.js"></script>
+</body>
+</html>

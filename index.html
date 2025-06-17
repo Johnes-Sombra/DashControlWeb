@@ -1,32 +1,38 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DashControl | Login</title>
-  <link rel="stylesheet" href="./assets/css/estilo_login.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Web_Site/assets/css/estilo_principal.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>Cooperativa Coopsul | Menu Principal</title>
 </head>
+
 <body>
-  <div class="login-container">
-    <div class="logos">
-      <img src="./assets/logos/ktn_png.png" alt="Logo DashControl" />
-      <span class="arrow">⬌</span>
-      <img src="./assets/logos/coopsul_png.png" alt="Logo Cooperativa Coopsul" />
-    </div>
-    <label for="username">Usuário</label>
-    <input type="text" id="username" placeholder="Digite seu usuário">
 
-    <label for="password">Senha</label>
-    <input type="password" id="password" placeholder="Digite sua senha">
+   <div class="container">
 
-    <div class="buttons">
-      <button class="btn-login" onclick="validarLogin()">Login</button>
-      <button class="btn-forgot" onclick="alert('Contate o suporte.')">Esqueci minha senha</button>
+
+
+    <img src="/Web_Site/assets/logos/coopsul_png.png" alt="Logo Coopsul" class="logo">
+
+    <div class="menu-buttons">
+      <button class="btn green" onclick="window.location.href='/Web_Site/coletas/'">Coletas</button>
+      <button class="btn green" onclick="window.location.href='#'">Cooperados</button>
+      <button class="btn green" onclick="window.location.href='#'">Empresas</button>
     </div>
 
-    <div id="mensagem" class="message"></div>
+    <hr>
+
+    <div class="nav">
+      <button class="btn blue" onclick="window.location.href='#'">Facebook</button>
+      <button class="btn instagram" onclick="window.location.href='#'">Instagram</button>
+      <button class="btn red" onclick="window.location.href='#'">Sair</button>
+    </div>
+
   </div>
 
-  <script src="./assets/js/script_login.js"></script>
 </body>
+
 </html>

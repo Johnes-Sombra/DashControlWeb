@@ -1,0 +1,65 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+form h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
+}
+
+form label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+form input,
+form select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.mensagem {
+  color: green;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.materiais-grid {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.materiais-grid .coluna {
+  flex: 1;
+  min-width: 200px;
+}
+
+.materiais-grid .coluna label {
+  display: block;
+  margin-top: 10px;
+}
+
+.materiais-grid .coluna input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}

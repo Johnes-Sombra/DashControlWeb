@@ -81,6 +81,24 @@ form select {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  gap: 30px; /* Aumenta o espaçamento entre os botões */
+}
+
+.form-buttons .btn {
+  flex: 1; /* Faz com que os botões ocupem espaço igual */
+  min-width: 120px; /* Garante uma largura mínima para os botões */
+}
+
+/* Ajuste para telas menores */
+@media screen and (max-width: 720px) {
+  .form-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .form-buttons .btn {
+    width: 100%;
+  }
 }
 
 .mensagem {

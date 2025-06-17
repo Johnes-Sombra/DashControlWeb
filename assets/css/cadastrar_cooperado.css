@@ -1,0 +1,96 @@
+/* Container principal */
+.container_cooperado {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+form h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
+}
+
+form label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+form input,
+form select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  width: 100%;
+}
+
+/* Grid para informações pessoais */
+.info-pessoal-grid,
+.endereco-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.info-pessoal-grid .coluna,
+.endereco-grid .coluna {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Botões do formulário */
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 30px;
+}
+
+.form-buttons .btn {
+  flex: 1;
+  min-width: 120px;
+}
+
+.mensagem {
+  color: green;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Responsividade */
+@media screen and (max-width: 720px) {
+  .container_cooperado {
+    padding: 20px;
+  }
+
+  .info-pessoal-grid,
+  .endereco-grid {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .form-buttons .btn {
+    width: 100%;
+  }
+}

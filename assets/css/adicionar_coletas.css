@@ -89,3 +89,63 @@ form select {
   text-align: center;
   margin-top: 10px;
 }
+
+
+/* Media Queries para diferentes resoluções */
+/* Desktop (1280x720) */
+@media screen and (min-width: 1024px) {
+  .container_coletas {
+    max-width: 1000px;
+    padding: 50px;
+  }
+
+  .info-coleta-grid {
+    gap: 30px;
+  }
+
+  .materiais-grid {
+    gap: 30px;
+  }
+
+  form input,
+  form select {
+    padding: 12px;
+    font-size: 16px;
+  }
+}
+
+/* Vertical/Mobile (720x1280) */
+@media screen and (max-width: 720px) {
+  .container_coletas {
+    padding: 20px;
+  }
+
+  .info-coleta-grid {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .materiais-grid {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .materiais-grid .coluna {
+    min-width: 100%;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-buttons .btn {
+    width: 100%;
+  }
+
+  form input,
+  form select {
+    padding: 8px;
+    font-size: 14px;
+  }
+}

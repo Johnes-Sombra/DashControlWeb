@@ -25,19 +25,7 @@ form select {
   font-size: 14px;
 }
 
-.form-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.mensagem {
-  color: green;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 10px;
-}
-
+/* Estilo dos campos */
 .info-coleta-grid {
   display: flex;
   justify-content: space-between;
@@ -51,7 +39,6 @@ form select {
   flex-direction: column;
 }
 
-
 .materiais-grid {
   display: flex;
   gap: 20px;
@@ -62,7 +49,7 @@ form select {
 
 .materiais-grid .coluna {
   flex: 1;
-  min-width: 200px;
+  min-width: 100px;
 }
 
 .materiais-grid .coluna label {
@@ -76,4 +63,18 @@ form select {
   margin-bottom: 10px;
   border-radius: 6px;
   border: 1px solid #ccc;
+}
+/* Estilo dos campos */
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.mensagem {
+  color: green;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
 }

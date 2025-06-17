@@ -18,32 +18,42 @@
     <form id="form-coleta">
       <h2>Informações da Coleta</h2>
 
-      <label for="data">Data da Coleta:</label>
-      <input type="date" id="data" name="data" required>
+      <div class="info-coleta-grid">
+        <!-- Coluna 1 -->
+        <div class="coluna">
+          <label for="data">Data da Coleta:</label>
+          <input type="date" id="data" name="data" required>
+        </div>
 
-      <label for="local">Local de Coleta:</label>
-      <select id="local" required>
-        <option disabled selected>Selecione um Local</option>
-        <option>AmBev</option>
-        <option>Americanas</option>
-        <option>Prefeitura de CZS</option>
-        <option>Zopone</option>
-        <option>Outro</option>
-      </select>
+        <!-- Coluna 2 -->
+        <div class="coluna">
+          <label for="local">Local de Coleta:</label>
+          <select id="local" name="local" required>
+            <option disabled selected>Selecione um Local</option>
+            <option>AmBev</option>
+            <option>Americanas</option>
+            <option>Prefeitura de CZS</option>
+            <option>Zopone</option>
+            <option>Outro</option>
+          </select>
+        </div>
 
-      <label for="veiculo">Veículo Utilizado:</label>
-      <select id="veiculo" required>
-        <option disabled selected>Selecione um Veículo</option>
-        <option>Caminhão Prefeitura</option>
-        <option>Carro Coopsul</option>
-        <option>Triciclo 01</option>
-        <option>Triciclo 02</option>
-        <option>Outro</option>
-      </select>
-
-<h2>Materiais Coletados</h2>
+        <!-- Coluna 3 -->
+        <div class="coluna">
+          <label for="veiculo">Veículo Utilizado:</label>
+          <select id="veiculo" name="veiculo" required>
+            <option disabled selected>Selecione um Veículo</option>
+            <option>Caminhão Prefeitura</option>
+            <option>Carro Coopsul</option>
+            <option>Triciclo 01</option>
+            <option>Triciclo 02</option>
+            <option>Outro</option>
+          </select>
+        </div>
+      </div>
 
       <div class="materiais-grid">
+
         <!-- Coluna 1 -->
         <div class="coluna">
           <label for="papel">Papel (kg):</label>
@@ -79,6 +89,7 @@
           <label for="madeira">Madeira (m<sup>2</sup>):</label>
           <input type="number" id="madeira" name="madeira" min="0" step="1.0">
         </div>
+
       </div>
 
       <hr>

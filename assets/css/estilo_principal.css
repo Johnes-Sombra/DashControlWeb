@@ -127,3 +127,54 @@ footer {
     text-align: center;
   }
 }
+
+/* Media Queries para diferentes resoluções */
+/* Desktop (1280x720) */
+@media screen and (min-width: 1024px) {
+  .container {
+    max-width: 600px;
+    padding: 50px;
+  }
+
+  .logo {
+    width: 200px;
+  }
+
+  .btn {
+    font-size: 18px;
+    padding: 15px;
+  }
+
+  .menu-buttons {
+    gap: 20px;
+  }
+
+  .nav {
+    gap: 15px;
+  }
+}
+
+/* Vertical/Mobile (720x1280) */
+@media screen and (max-width: 720px) {
+  body {
+    padding: 15px;
+  }
+
+  .container {
+    padding: 25px;
+    max-width: 100%;
+  }
+
+  .logo {
+    width: 120px;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .menu-buttons {
+    gap: 12px;
+  }
+}

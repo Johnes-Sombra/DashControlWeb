@@ -75,18 +75,22 @@ form select {
   border-radius: 6px;
   border: 1px solid #ccc;
 }
+
 /* Estilo dos campos */
 
 .form-buttons {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-  gap: 30px; /* Aumenta o espaçamento entre os botões */
+  gap: 30px;
+  /* Espaçamento entre os botões */
 }
 
 .form-buttons .btn {
-  flex: 1; /* Faz com que os botões ocupem espaço igual */
-  min-width: 120px; /* Garante uma largura mínima para os botões */
+  flex: 1;
+  /* Botões ocupam espaço igual */
+  min-width: 120px;
+  /* Largura mínima para os botões */
 }
 
 /* Ajuste para telas menores */

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../assets/css/estilo_principal.css">
+    <link rel="stylesheet" href="../../assets/css/estilo_locais_coleta.css">
+    <link rel="shortcut icon" href="../../favicon.png" type="image/x-icon">
+    <title>Adicionar Local de Coleta</title>
+</head>
+
+<body>
+    <div class="container_locais">
+        <img src="../../assets/logos/coopsul_png.png" alt="Logo Coopsul" class="logo">
+        <h2>Adicionar Local de Coleta</h2>
+
+        <form id="form-local">
+            <div class="form-group">
+                <label for="nome">Nome do local:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+
+            <div class="form-group">
+                <label for="proprietario">Proprietário do local:</label>
+                <input type="text" id="proprietario" name="proprietario" required>
+            </div>
+
+            <div class="form-group">
+                <label for="endereco">Endereço:</label>
+                <input type="text" id="endereco" name="endereco" required>
+            </div>
+
+            <div class="form-group">
+                <label for="telefone">Telefone:</label>
+                <input type="tel" id="telefone" name="telefone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-buttons">
+                <button type="button" class="btn blue" onclick="window.location.href='..'">
+                    Voltar
+                </button>
+                <button type="reset" class="btn red">
+                    Limpar
+                </button>
+                <button type="submit" class="btn green">
+                    Salvar
+                </button>
+            </div>
+        </form>
+
+        <p id="mensagem" class="mensagem"></p>
+    </div>
+
+    <script>
+        const form = document.getElementById('form-local');
+        const mensagem = document.getElementById('mensagem');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            mensagem.textContent = "Local de coleta salvo com sucesso!";
+            mensagem.style.color = 'green';
+            setTimeout(() => mensagem.textContent = "", 3000);
+            form.reset();
+        });
+    </script>
+</body>
+
+</html>
